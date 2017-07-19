@@ -1,0 +1,21 @@
+body {
+    background: #302b28;
+}
+
+header {
+    text-align: center;
+}
+
+header img {
+    margin: 40px auto;
+}
+
+main {
+    text-align: center;
+}
+
+canvas {
+    /*width: 200px;
+    height: 200px;*/
+    border: 4px solid #201c1a;
+}
