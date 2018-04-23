@@ -2,4 +2,4 @@
 window.onresize = function() { buildGrid(); }*/
 
 const oecumene = new Oecumene();
-oecumene.buildGrid();
+oecumene.renderGrid();
