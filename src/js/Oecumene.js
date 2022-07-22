@@ -9,16 +9,25 @@ class Oecumene {
     constructor() {
         this.theCanvas = document.getElementById('oecumene');
         this.Oecumene = this.theCanvas.getContext("2d");
+        this.stack = [];
         
         this.theCanvas.addEventListener('click', function(){ 
-            Oecumene.getCoords(event, this)
+            Oecumene.renderCell(event, this)
         })
-        
-        
-        
+
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
+        
+        document.getElementById('game_start').addEventListener('click', function(){ 
+            Oecumene.start(event)
+        })
     }
+    
+    static start(event) {
+        console.log(stack)
+        
+    }
+    
     
     /**
      * Рисует сетку
@@ -43,9 +52,17 @@ class Oecumene {
             this.Oecumene.moveTo(0, 20 * i);
             this.Oecumene.lineTo(this.theCanvas.width, 20 * i);
             this.Oecumene.stroke();
-        }
+        }   
+    }
+    
+    /**
+     * Основная функция для заливки/удаления клетки
+     */
+    static renderCell(event, cnv) {
+        let cell = Oecumene.getCoords(event, cnv);
+        let needFill = Oecumene.stackCheck(cell);
         
-        return 1;    
+        Oecumene.drawCell(cnv, cell, needFill);
     }
     
     /**
@@ -63,11 +80,58 @@ class Oecumene {
             x : parseInt(x / 20 + 1),
             y : parseInt(y / 20 + 1),
         }
+
+        return cell;
+    }
+    
+    /**
+     * Проверяем массив с координатами, если координата
+     * есть в массиве, то удаляем, если нет,
+     * то добавляем координаты в массив.
+     */
+    static stackCheck(cell) {
+        let length = stack.length;
+
+        if(length == 0) {
+            stack.push(cell);
+            
+            return true;
+        } else {
+            for(let i = 0; i < length; i++) {
+
+                if(stack[i].x == cell.x && stack[i].y == cell.y ) {
+                    stack.splice(i, 1);
+                    return false;
+                }
+            }
+            stack.push(cell);
+
+            //let cellInd = findCell(stack, cell);
+            //console.log(cellInd);
+            /*if(cellInd) {
+                let sortStack = selectionSort(stack);
+                stack = sortStack;
+                stack.splice(cellInd, i);
+                return false;
+            }*/
+            //stack.push(cell);
+        }
+        return true;
         
-        cnv.getContext("2d").fillStyle = '#a0ff78';
+    }
+    
+    /**
+     * Заливает клетку зелёным или фоновым цветом,
+     * в зависимости от значения needFill
+     */
+    static drawCell(cnv, cell, needFill) {
+        let color = '#fff';
+        
+        if(needFill) color = '#a0ff78'; 
+        else color = '#252525';
+        
+        cnv.getContext("2d").fillStyle = color;
         cnv.getContext("2d").fillRect((cell.x * 20 - 19), cell.y * 20 - 19, 18, 18);
-        
-        console.log("(x, y) = " + cell.x + ", " + cell.y)        
     }
 }
 
