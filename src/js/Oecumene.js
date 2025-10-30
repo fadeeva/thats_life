@@ -1,5 +1,14 @@
 'use strict';
 
+
+const CELL_settings = {
+    size  : 18,
+    colors: {
+        empty: '#252525',
+        fill : '#a0ff78'
+    }
+}
+
 /** Класс описывает сетку для игры */
 class Oecumene {
     
@@ -25,7 +34,6 @@ class Oecumene {
     
     static start(event) {
         console.log(stack)
-        
     }
     
     
@@ -125,13 +133,13 @@ class Oecumene {
      * в зависимости от значения needFill
      */
     static drawCell(cnv, cell, needFill) {
-        let color = '#fff';
+        let color = CELL_settings.colors.empty;
         
-        if(needFill) color = '#a0ff78'; 
-        else color = '#252525';
+        if(needFill) color = CELL_settings.colors.fill; 
         
         cnv.getContext("2d").fillStyle = color;
-        cnv.getContext("2d").fillRect((cell.x * 20 - 19), cell.y * 20 - 19, 18, 18);
+        cnv.getContext("2d").fillRect((cell.x * 20 - 19), cell.y * 20 - 19,
+                                      CELL_settings.size, CELL_settings.size);
     }
 }
 
