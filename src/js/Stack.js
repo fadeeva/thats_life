@@ -1,1 +1,1 @@
-let stack = [];
+const stack = [];
