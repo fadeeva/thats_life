@@ -99,23 +99,12 @@ class Oecumene {
             return true;
         } else {
             for(let i = 0; i < stack.length; i++) {
-
                 if(stack[i].x == cell.x && stack[i].y == cell.y ) {
                     stack.splice(i, 1);
                     return false;
                 }
             }
             stack.push(cell);
-
-            //let cellInd = findCell(stack, cell);
-            //console.log(cellInd);
-            /*if(cellInd) {
-                let sortStack = selectionSort(stack);
-                stack = sortStack;
-                stack.splice(cellInd, i);
-                return false;
-            }*/
-            //stack.push(cell);
         }
         return true;
         
